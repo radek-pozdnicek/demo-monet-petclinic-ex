@@ -1,3 +1,19 @@
+So far implemented ***
+
+# So far implented *** and not implemented xxx
+#
+# Scope of Work:
+# --------------
+# • Rozjet docker                                                            *** Windows Docker Desktop
+# • Stáhnout image (java spring nejaká demo appka s db (oracle/postgres)     *** Petclinic example 
+# • Nachystat nejlépe v Postman test api demo aplikace                       xxx App running on localhost:8080
+# • Spustit si docker-compose a v nem zprovoznit DB a demo aplikaci          *** Images pushed to Docker HUB, GIT
+# • Rozjet si minishift/minukube a spustit v nem db a demo aplikaci          xxx
+# • Optional nasadit Prometheus a Grafana pro zobrazena monitoringu systému  xxx
+# • Konfigurace uložit do gitu (gitlab,github…)                              *** For the implemented parts 
+
+
+
 # demo-monet-petclinic-ex
 demo for monet+ petclinic common Docker example
 
