@@ -49,6 +49,8 @@ kubectl expose deployment petclinic --type=LoadBalancer --port 8080 --target-por
 
 minikube service demo-monet-app-multi-stage
 
+:# ?? kubectl port-forward service/demo-monet-app-multi-stage 7080:8080
+
 :# List Kubernetes Pods:
 kubectl get pods
 

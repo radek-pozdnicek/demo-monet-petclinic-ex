@@ -55,6 +55,13 @@ cd spring-petclinic && .\mvnw spring-boot:run
 :# RUN APP & DB IN DOCKER CONTAINERS #
 :#####################################
  
+:# Start Docker Desktop including Docker daemon 
+:# start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+:# https://www.coretechnologies.com/products/AlwaysUp/Apps/StartDockerDaemonAsAWindowsService.html
+
+:# docker start 
+:# dockerd --register-service 
+ 
 :# Pull required Docker Images from Hub to local
 :# ---------------------------------------------
 docker pull mysql & ^
@@ -242,6 +249,8 @@ curl  --request GET ^
 :# .\demo-monet-minikube.cmd   #
 :###############################
 
+:# Example https://tech.paulcz.net/blog/spring-into-kubernetes-part-1/
+
 :# Run script
 .\demo-monet-minikube.cmd
 
@@ -249,11 +258,30 @@ curl  --request GET ^
 :# POSTMAN                    #
 :# Config file loc: .\Postman #
 :##############################
+:# Postman is a standalone tool that exercises web APIs 
+:# by making HTTP requests from outside the service.
+:# A collection in Postman is a series of HTTP requests.
+:# Postman saves every aspect of the requests, including headers and message bodies. 
+:# Therefore, we can run the requests in sequence as semi-automated tests.
+
+:# Testing locally only, with no Runner.
+:# Following Example:
+https://github.com/spring-petclinic/spring-petclinic-rest
+
+:# Run container 
+docker run -p 9966:9966 springcommunity/spring-petclinic-rest
+
+:# Open in browser for REST examples
+:# http://localhost:9966/petclinic/
+:# http://localhost:9966/petclinic/actuator/health
+:# http://localhost:9966/petclinic/actuator/info
+http://localhost:9966/petclinic/swagger-ui/index.html#/vet/listVets
 
 :# Test API Response 
 curl --request GET --url http://localhost:8080/actuator/health --header 'content-type: application/json'
 
-:# Run script
+:# Link to my Postman Collections
+https://elements.getpostman.com/redirect?entityId=28043281-b8b9694a-9b52-4c1b-9528-77be6c5817e6&entityType=collection
 
 :##############################
 :# VARIOUS GIT OPERATIONS     #
@@ -263,12 +291,18 @@ curl --request GET --url http://localhost:8080/actuator/health --header 'content
 .\demo-monet-minikube.cmd
 
 :# Go to local repo root dir
+git config --global --list
 :# git init -b main
+:# git remote add origin https://github.com/radek-pozdnicek/demo-monet-petclinic-ex
+:# git remote -v
 :# git add .
 :# git add -A
-:# git commit -m "Baseline app +docker"
+:# git add --all
+:# git status
+:# git commit -m "message"
 :# git tag -a -m "Baseline app +docker" v1
-:# 
-:# git remote add origin https://github.com/radek-pozdnicek/demo-monet-petclinic-ex
+:# git push origin main
+:# git push origin main
 :# git push 
 
+git pull origin https://github.com/radek-pozdnicek/demo-monet-petclinic-ex
