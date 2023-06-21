@@ -42,16 +42,31 @@ kubectl cluster-info
 minikube dashboard
 
 :# Run Docker container prebuilt app
-kubectl run demo-monet-app-multi-stage-6 --image=pozdnicek/demo-monet-app-multi-stage:latest --port=8080 
+kubectl run demo-monet-app-multi-stage --image=pozdnicek/demo-monet-app-multi-stage:latest --port=8080 
 
-:# Open dashboard
-minikube dashboard
+kubectl expose demo-monet-app-multi-stage --type=LoadBalancer --port=8080
+
+minikube service demo-monet-app-multi-stage
+
+:# List Kubernetes Pods:
+kubectl get pods
+
+:# Now, we can check whether the deployment was successful:
+kubectl get deployments
+
+kubectl get services
 
 :# Show events:
 kubectl get events
 
-:# Now, we can check whether the deployment was successful:
-kubectl get deployments
+:# Open dashboard
+minikube dashboard
+
+:# Cleanup
+kubectl delete service demo-monet-app-multi-stage
+kubectl delete deployment demo-monet-app-multi-stage
+minikube stop
+minikube delete
 
 :# Press any key to close
 timeout /t -1
