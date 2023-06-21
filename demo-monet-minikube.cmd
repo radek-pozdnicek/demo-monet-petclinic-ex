@@ -44,7 +44,8 @@ minikube dashboard
 :# Run Docker container prebuilt app
 kubectl run demo-monet-app-multi-stage --image=pozdnicek/demo-monet-app-multi-stage:latest --port=8080 
 
-kubectl expose demo-monet-app-multi-stage --type=LoadBalancer --port=8080
+:#kubectl expose demo-monet-app-multi-stage --type=LoadBalancer --port=8080
+kubectl expose deployment petclinic --type=LoadBalancer --port 8080 --target-port 8080
 
 minikube service demo-monet-app-multi-stage
 

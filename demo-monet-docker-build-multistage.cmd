@@ -11,6 +11,14 @@ docker pull postgres & ^
 docker pull eclipse-temurin:17-jdk-jammy & ^
 docker pull eclipse-temurin:17-jre-jammy
 
+:# Run db Docker image Mysql - Needed for TESTING phase of build 
+docker run -it --rm -d -v demo-monet-db_data:/var/lib/mysql ^
+-v demo-monet-db_config:/etc/mysql/conf.d ^
+--network demo-monet-db-net --name demo-monet-db-2 ^
+-e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic ^
+-e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic ^
+-p 3306:3306 mysql
+
 :# Build Multi Stage image
 cd .\spring-petclinic
 docker build --tag demo-monet-app-multi-stage-nove -f Dockerfile_MultiStage .

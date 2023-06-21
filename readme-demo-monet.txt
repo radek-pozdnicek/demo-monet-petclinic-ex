@@ -100,7 +100,7 @@ docker network create demo-monet-db-net
 :# Run db Docker image Mysql
 docker run -it --rm -d -v demo-monet-db_data:/var/lib/mysql ^
 -v demo-monet-db_config:/etc/mysql/conf.d ^
---network demo-monet-db-net --name demo-monet-db ^
+--network demo-monet-db-net --name demo-monet-db-2 ^
 -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic ^
 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic ^
 -p 3306:3306 mysql
@@ -146,12 +146,15 @@ curl  --request GET ^
       --url http://localhost:8080/vets ^
       --header 'content-type: application/json'
 
-:#####################################
-:# Include PREBUILT APP to image     #
-:# Multi-stage Dockerfile_MultiStage #
-:#####################################
-
+:############################################
+:# Include PREBUILT APP to image            #
+:# Multi-stage Dockerfile_MultiStage        # 
+:# .\demo-monet-docker-build-multistage.cmd #
+:# .\spring-petclinic\Dockerfile_MultiStage #
+:############################################
+:#
 :# Create Dockerfile_MultiStage with the following content:
+:# .\spring-petclinic\Dockerfile_MultiStage
 :# 
 :# FROM eclipse-temurin:17-jdk-jammy as base
 :# WORKDIR /app
@@ -173,19 +176,15 @@ curl  --request GET ^
 :# COPY --from=base /app/target/spring-petclinic-*.jar /spring-petclinic.jar
 :# CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/spring-petclinic.jar"]
 
-:# Build Multi Stage image
-docker build --tag demo-monet-app-multi-stage -f Dockerfile_MultiStage .
+:# Run script
+.\demo-monet-docker-build-multistage.cmd
 
-:# Tag images to push built images to Docker Hub
-docker tag demo-monet-app-multi-stage pozdnicek/demo-monet-app-multi-stage:latest & ^
-
-:# Push images to Docker Hub
-docker push pozdnicek/demo-monet-app-multi-stage:latest
-
-:##############################
-:# DOCKER COMPOSE             #
-:##############################
-
+:#########################################
+:# DOCKER COMPOSE                        #
+:# .\demo-monet-docker-compose.cmd       #
+:# .\spring-petclinic\docker-compose.yml #
+:#########################################
+:#
 :# Create docker-compose.yml with the following content:
 :# 
 :# version: '3.8'
@@ -238,14 +237,35 @@ docker push pozdnicek/demo-monet-app-multi-stage:latest
 :# Run docker compose
 .\demo-monet-docker-compose.cmd
 
+:###############################
+:# Run containers via MINIKUBE #
+:# .\demo-monet-minikube.cmd   #
+:###############################
+
+:# Run script
+.\demo-monet-minikube.cmd
+
+:##############################
+:# POSTMAN                    #
+:# Config file loc: .\Postman #
+:##############################
+
+:# Test API Response 
+curl --request GET --url http://localhost:8080/actuator/health --header 'content-type: application/json'
+
+:# Run script
+
 :##############################
 :# VARIOUS GIT OPERATIONS     #
 :##############################
 
+:# Run minikube script
+.\demo-monet-minikube.cmd
+
 :# Go to local repo root dir
 :# git init -b main
 :# git add .
-:# git add -ALL
+:# git add -A
 :# git commit -m "Baseline app +docker"
 :# git tag -a -m "Baseline app +docker" v1
 :# 
