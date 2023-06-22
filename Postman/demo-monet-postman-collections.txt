@@ -1,2 +1,4 @@
+
 :# Link to Postman collections
 :# https://www.postman.com/radek-pozdnicek/workspace/radek-petclinic/collection/28043281-b8b9694a-9b52-4c1b-9528-77be6c5817e6?action=share&creator=28043281
+:# https://web.postman.co/workspace/fbb5d9b3-3314-4c67-bdac-6051df3b6c5c/collection/28043281-b8b9694a-9b52-4c1b-9528-77be6c5817e6
